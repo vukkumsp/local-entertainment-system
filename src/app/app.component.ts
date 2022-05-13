@@ -14,12 +14,19 @@ export class AppComponent implements OnInit {
   }
   ngOnInit(): void {
     console.log("Console Logging")
-    this.file.getFiles().then(
-      (success)=>{
+    // this.file.getFiles().then(
+    //   (success) => {
+    //     console.log("Success: ", success);
+    //   },
+    //   (failure) => {
+    //     console.log("Failure: ", failure);
+    //   });
+    this.file.getData().then(
+      (success) => {
         console.log("Success: ", success);
       },
-      (failure)=>{
-        console.log("Failure: ",failure);
+      (failure) => {
+        console.log("Failure: ", failure);
       });
   }
 

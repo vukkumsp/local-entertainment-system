@@ -25,9 +25,13 @@ app.on('window-all-closed', function () {
 
 // File System Access Code
 ipcMain.on('getFiles', (event, arg) => {
-    const files = fs.readdirSync(__dirname)
-    // const files = fs.readdirSync("someDir")
+    // const files = fs.readdirSync(__dirname)
+    const files = fs.readdirSync("C:\\Users\\vukku\\Documents")
     win.webContents.send('getFilesResponse', files)
+})
+
+ipcMain.on('getData', (event, arg) => {
+    win.webContents.send('getDataResponse', JSON.stringify(arg))
 })
 
 function createWindow() {
