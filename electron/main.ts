@@ -1,7 +1,7 @@
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, ipcMain } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
-
+import * as fs from 'fs';
 
 let win: BrowserWindow;
 
@@ -38,10 +38,17 @@ function createWindow() {
         })
     )
     // uncomment below to open the DevTools.
-    // win.webContents.openDevTools();
+    win.webContents.openDevTools();
 
     // Event when the window is closed.
     win.on('closed', () => {
         win = null
     })
 }
+
+// File System Access Code
+ipcMain.on('getFiles', (event, arg) => {
+    const files = fs.readdirSync(__dirname)
+
+    win.webContents.send('getFilesResponse', files)
+})
