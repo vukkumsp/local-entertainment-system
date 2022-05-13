@@ -10,6 +10,19 @@ export class FileService {
 
   constructor(private es: ElectronService) { }
 
+  async getFile(filePath: String) {
+    return new Promise<any>((resolve, reject) => {
+      this.es.getIpcR().once("getFileResponse", (event, arg) => {
+        const data = JSON.parse(Buffer.from(arg).toString('utf8'))
+        console.log("getFile: ", data);
+        
+        resolve(data);
+      });
+      console.log("getFile path: ", filePath);
+      this.es.getIpcR().send("getFile", filePath);
+    });
+  }
+
   async getData() {
     return new Promise<string[]>((resolve, reject) => {
       this.es.getIpcR().once("getDataResponse", (event, arg) => {

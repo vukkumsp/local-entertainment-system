@@ -23,6 +23,13 @@ app.on('window-all-closed', function () {
     }
 })
 
+//GetFile
+ipcMain.on('getFile', (event, arg) => {
+    //arg is the path to the json file
+    const fileData = fs.readFileSync(arg);
+    win.webContents.send('getFileResponse', fileData);
+})
+
 // File System Access Code
 ipcMain.on('getFiles', (event, arg) => {
     // const files = fs.readdirSync(__dirname)
