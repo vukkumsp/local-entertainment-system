@@ -1,7 +1,7 @@
 {
   "name": "local-entertainment-system",
   "version": "0.0.0",
-  "main": "app.js",
+  "main": "electron/dist/main.js",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

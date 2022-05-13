@@ -23,13 +23,25 @@ app.on('window-all-closed', function () {
     }
 })
 
+// File System Access Code
+ipcMain.on('getFiles', (event, arg) => {
+    const files = fs.readdirSync(__dirname)
+    // const files = fs.readdirSync("someDir")
+    win.webContents.send('getFilesResponse', files)
+})
+
 function createWindow() {
     win = new BrowserWindow({
-        width: 800,
-        height: 600,
+        width: 1270,
+        height: 720,
         backgroundColor: '#ffffff',
+        // webPreferences: {
+        //     nodeIntegration: true,
+        //     // enableRemoteModule: true
+        // }
     })
-    win.setMenu(null);
+    // Menu bar
+    // win.setMenu(null);
     win.loadURL(
         url.format({
             pathname: path.join(__dirname, `/../../dist/local-entertainment-system/index.html`),
@@ -45,10 +57,3 @@ function createWindow() {
         win = null
     })
 }
-
-// File System Access Code
-ipcMain.on('getFiles', (event, arg) => {
-    const files = fs.readdirSync(__dirname)
-
-    win.webContents.send('getFilesResponse', files)
-})
