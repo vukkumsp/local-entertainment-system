@@ -23,10 +23,11 @@ export class FileService {
   async getFiles() {
     return new Promise<string[]>((resolve, reject) => {
       this.ipc.once("getFilesResponse", (event, arg) => {
+        console.log("Response: ", arg);
         resolve(arg);
       });
+      console.log("Sending getFiles to channel");
       this.ipc.send("getFiles");
-      reject("Error");
     });
   }
 }

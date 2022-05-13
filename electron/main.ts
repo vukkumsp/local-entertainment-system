@@ -35,10 +35,11 @@ function createWindow() {
         width: 1270,
         height: 720,
         backgroundColor: '#ffffff',
-        // webPreferences: {
-        //     nodeIntegration: true,
-        //     // enableRemoteModule: true
-        // }
+        webPreferences: {
+            nodeIntegration: true,
+            // enableRemoteModule: true
+            contextIsolation: false, //required to make window.require work when in electron window
+        }
     })
     // Menu bar
     // win.setMenu(null);
