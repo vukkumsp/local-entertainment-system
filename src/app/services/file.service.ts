@@ -36,17 +36,6 @@ export class FileService {
     });
   }
 
-  async getData() {
-    return new Promise<string[]>((resolve, reject) => {
-      this.es.getIpcR().once("getDataResponse", (event, arg) => {
-        console.log("Response: ", arg);
-        resolve(arg);
-      });
-      console.log("Sending getData to channel");
-      this.es.getIpcR().send("getData", "request");
-    });
-  }
-
   async getFilesInDir(dirPath: String) { //"C:\\Users\\vukku\\Documents"
     return new Promise<string[]>((resolve, reject) => {
       this.es.getIpcR().once("getFilesInDirResponse", (event, files) => {

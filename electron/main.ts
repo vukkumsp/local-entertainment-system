@@ -44,10 +44,6 @@ ipcMain.on('getFilesInDir', (event, dirPath) => {
     win.webContents.send('getFilesInDirResponse', files)
 })
 
-ipcMain.on('getData', (event, arg) => {
-    win.webContents.send('getDataResponse', JSON.stringify(arg))
-})
-
 function createWindow() {
     win = new BrowserWindow({
         width: 1270,
