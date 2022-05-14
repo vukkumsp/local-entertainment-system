@@ -23,12 +23,6 @@
                     <input type="text" class="form-control" 
                             placeholder="Movies folder path" [(ngModel)]="moviesPath">
                 </div>
-                <div class="col-auto">
-                    <button type="button" class="btn btn-primary" (click)="update()">Update</button>
-                </div>
-                <div class="col-auto">
-                    <button type="button" class="btn btn-primary">Sync</button>
-                </div>
             </div>
             <!--  -->
             <div class="row py-1">
@@ -36,11 +30,13 @@
                     <input type="text" class="form-control" 
                             placeholder="TV Series folder path" [(ngModel)]="tvSeriesPath">
                 </div>
+            </div>
+            <div class="row py-1">
                 <div class="col-auto">
-                    <button type="button" class="btn btn-primary">Update</button>
+                    <button type="button" class="btn btn-primary" (click)="update()">Update Paths</button>
                 </div>
                 <div class="col-auto">
-                    <button type="button" class="btn btn-primary">Sync</button>
+                    <button type="button" class="btn btn-primary">Sync Folder Data</button>
                 </div>
             </div>
         </div>
