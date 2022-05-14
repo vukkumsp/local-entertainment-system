@@ -23,6 +23,19 @@ export class FileService {
     });
   }
 
+  async updateJsonFile(filePath: String, jsonData: any) {
+    return new Promise<any>((resolve, reject) => {
+      this.es.getIpcR().once("updateJsonFileResponse", (event, path, data) => {
+        // const data = JSON.parse(Buffer.from(arg).toString('utf8'))
+        console.log("updateJsonFileResponse: ", path, data);
+        
+        resolve({path, data});
+      });
+      console.log("getFile path: ", filePath);
+      this.es.getIpcR().send("updateJsonFile", filePath, jsonData);
+    });
+  }
+
   async getData() {
     return new Promise<string[]>((resolve, reject) => {
       this.es.getIpcR().once("getDataResponse", (event, arg) => {
@@ -34,15 +47,15 @@ export class FileService {
     });
   }
 
-  async getFiles() {
+  async getFilesInDir(dirPath: String) { //"C:\\Users\\vukku\\Documents"
     return new Promise<string[]>((resolve, reject) => {
-      this.es.getIpcR().once("getFilesResponse", (event, arg) => {
-        console.log("Directory used: ", __dirname);
-        console.log("Response: ", arg);
-        resolve(arg);
+      this.es.getIpcR().once("getFilesInDirResponse", (event, files) => {
+        console.log("Directory used: ", dirPath);
+        console.log("Response: ", files);
+        resolve(files);
       });
-      console.log("Sending getFiles to channel");
-      this.es.getIpcR().send("getFiles");
+      console.log("Sending getFilesInDir to channel");
+      this.es.getIpcR().send("getFilesInDir", dirPath);
     });
   }
 }

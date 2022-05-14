@@ -24,17 +24,24 @@ app.on('window-all-closed', function () {
 })
 
 //GetFile
-ipcMain.on('getFile', (event, arg) => {
+ipcMain.on('getFile', (event, filePath) => {
     //arg is the path to the json file
-    const fileData = fs.readFileSync(arg);
+    const fileData = fs.readFileSync(filePath);
     win.webContents.send('getFileResponse', fileData);
 })
 
-// File System Access Code
-ipcMain.on('getFiles', (event, arg) => {
-    // const files = fs.readdirSync(__dirname)
-    const files = fs.readdirSync("C:\\Users\\vukku\\Documents")
-    win.webContents.send('getFilesResponse', files)
+//UpdateFile
+ipcMain.on('updateJsonFile', (event, path, data) => {
+    // const [path, data] = args;
+    fs.writeFileSync(path, JSON.stringify(data));
+    win.webContents.send('updateJsonFileResponse', path, data);
+})
+
+//GetFilesInDir
+ipcMain.on('getFilesInDir', (event, dirPath) => {
+    // const files = fs.readdirSync(__dirname) "C:\\Users\\vukku\\Documents"
+    const files = fs.readdirSync(dirPath)
+    win.webContents.send('getFilesInDirResponse', files)
 })
 
 ipcMain.on('getData', (event, arg) => {

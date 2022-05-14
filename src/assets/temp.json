@@ -2,9 +2,20 @@
 	"moviesPath":"C:\\Users\\vukku\\Documents\\Movies",
 	"tvSeriesPath":"C:\\Users\\vukku\\Documents\\TV Series",
 	"movies":[
-		
+		{
+			"name":"",
+			"folderPath":"",
+			"videoPath":"",
+			"posterPath":"",
+			"subs":[
+				{
+					"language":"",
+					"srtPath":""
+				}
+			]
+		}
 	],
 	"tvSeries":[
-		
+
 	]
 }
