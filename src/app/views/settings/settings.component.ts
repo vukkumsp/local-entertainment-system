@@ -57,13 +57,9 @@ export class SettingsComponent implements OnInit {
 
   syncData(): void {
     //go through specified movies folder
-    Promise.all([
-      
-    ])
     this.fileSystem.getFilesInDir(this.moviesPath).then(
       (moviesList)=>{
         console.log("Movies fetched: ", moviesList);
-
 
         this.movies = [];
         // for(let i = 0; i < moviesList.length; ++i){
@@ -99,7 +95,7 @@ export class SettingsComponent implements OnInit {
       (failure)=>{
 
       }
-    )
+    );
     
 
   }
