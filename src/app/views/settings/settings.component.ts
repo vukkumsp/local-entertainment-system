@@ -35,7 +35,7 @@ export class SettingsComponent implements OnInit {
     )
   }
 
-  update(): void {
+  updateData(): void {
     this.dbConfigJson = new DbConfig({
       moviesPath: this.moviesPath,
       tvSeriesPath: this.tvSeriesPath,
@@ -50,5 +50,44 @@ export class SettingsComponent implements OnInit {
         console.log("Failed to update the dbConfig file ", failure);
       }
     );
+  }
+
+  syncData(): void {
+    //go through specified movies folder
+    Promise.all([
+      
+    ])
+    this.fileSystem.getFilesInDir(this.moviesPath).then(
+      (moviesList)=>{
+        console.log("Movies fetched: ", moviesList);
+
+        this.movies = [];
+        moviesList.forEach(movie => {
+          this.fileSystem.getFilesInDir(this.moviesPath+"\\"+movie).then(
+            (movieFolderContent)=>{
+              console.log("Name: ", movie," - ",movieFolderContent);
+              //find & add movie name to name
+              //find & add video file to videoPath
+              //find & add srt file to srtPath
+              //find & add poster file to posterPath
+              //find & add folder path
+            }
+          )
+        });
+
+        //update dbConfig.json
+        this.dbConfigJson = new DbConfig({
+          moviesPath: this.moviesPath,
+          tvSeriesPath: this.tvSeriesPath,
+          movies: this.movies,
+          tvSeries: this.tvSeries
+        });
+      },
+      (failure)=>{
+
+      }
+    )
+    //update the dbConfig.json with the data
+
   }
 }
