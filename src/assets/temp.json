@@ -1,6 +1,14 @@
 {
 	"moviesPath":"C:\\Users\\vukku\\Documents\\Movies",
 	"tvSeriesPath":"C:\\Users\\vukku\\Documents\\TV Series",
+	"collections":[
+		{
+			"title":"",
+			"movies":[],
+			"tvSeries":[],
+			"order":[]
+		}
+	],
 	"movies":[
 		{
 			"name":"",
