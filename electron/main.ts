@@ -2,6 +2,7 @@ import { app, BrowserWindow, ipcMain } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
 import * as fs from 'fs';
+import { Movie } from 'models/Movie';
 
 let win: BrowserWindow;
 
@@ -44,6 +45,29 @@ ipcMain.on('getFilesInDir', (event, dirPath) => {
     win.webContents.send('getFilesInDirResponse', files)
 })
 
+//Parse movies folder
+ipcMain.on('parseMovies', (event, moviesFolder) => {
+    const videoExts = ["mp4"];
+    const coverExts = ["png", "jpg", "jpeg"];
+    const subExts = ["srt"];
+
+    const folders = fs.readdirSync(moviesFolder);
+    let movies = [];
+    
+    folders.forEach((folder)=>{
+        let folderPath = moviesFolder + "\\" + folder;
+        movies.push({
+            name: folder,
+            folderPath: folderPath,
+            videoPath: folderPath + "\\" + findFile(folderPath, videoExts),
+            posterPath: folderPath + "\\" + findFile(folderPath, coverExts),
+            subs: folderPath + "\\" + findFile(folderPath, subExts)
+        })
+    });
+
+    win.webContents.send('parseMoviesResponse', movies)
+})
+
 function createWindow() {
     win = new BrowserWindow({
         width: 1270,
@@ -71,4 +95,40 @@ function createWindow() {
     win.on('closed', () => {
         win = null
     })
+}
+
+
+/**********************************************************************************/
+function findFile(folderPath: string, extensions: string[]): string {
+    const files = fs.readdirSync(folderPath);
+
+    for(let i=0; i < files.length; ++i){
+        for(let j=0; j < extensions.length; ++j){
+            if(files[i].endsWith(extensions[j])){
+                return files[i];
+            }
+        }
+    }
+
+    return "ERROR";
+}
+
+function getVideoFileName(folderPath: string): string {
+    const extensions = ["mp4"];
+    const files = fs.readdirSync(folderPath);
+
+    for(let i=0; i < files.length; ++i){
+        for(let j=0; j < extensions.length; ++j){
+            if(files[i].endsWith(extensions[j])){
+                return files[i];
+            }
+        }
+    }
+
+    return "ERROR";
+}
+
+function getPosterFileName(folderPath: string): string {
+    const extensions = ["png", "jpg", "jpeg"]
+    return "abc";
 }

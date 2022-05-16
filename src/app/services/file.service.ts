@@ -47,4 +47,14 @@ export class FileService {
       this.es.getIpcR().send("getFilesInDir", dirPath);
     });
   }
+
+  async parseMovies(moviesPath: String) {
+    return new Promise<string[]>((resolve, reject) => {
+      this.es.getIpcR().once("parseMoviesResponse", (event, movies) => {
+        resolve(movies);
+      });
+      console.log("Sending parseMovies to channel");
+      this.es.getIpcR().send("parseMovies", moviesPath);
+    });
+  }
 }

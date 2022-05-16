@@ -56,46 +56,63 @@ export class SettingsComponent implements OnInit {
   }
 
   syncData(): void {
-    //go through specified movies folder
-    this.fileSystem.getFilesInDir(this.moviesPath).then(
-      (moviesList)=>{
-        console.log("Movies fetched: ", moviesList);
 
-        this.movies = [];
-        // for(let i = 0; i < moviesList.length; ++i){
-        //   this.fileSystem.getFilesInDir(this.moviesPath+"\\"+moviesList[i]).then(
-        //     (movieFolderContent)=>{
-        //       console.log("Name: ", moviesList[i]," - ",movieFolderContent);
-        //       //find & add movie name to name
-        //       //find & add video file to videoPath
-        //       //find & add srt file to srtPath
-        //       //find & add poster file to posterPath
-        //       //find & add folder path
-        //     }
-        //   );
-        //   await delay(5000);
-        // }
-
-        for(let i = 0; i < moviesList.length; ++i){
-          this.movies[i] = new Movie(moviesList[i], this.moviesPath+"\\"+moviesList[i], 
-                                                  '', '', []);
-        }
-
-        //update dbConfig.json
+    this.fileSystem.parseMovies(this.moviesPath).then(
+      (movies)=>{
+        console.log("Updated the dbConfig file ", movies);
         this.dbConfigJson = new DbConfig({
-          moviesPath: this.dbConfigJson.moviesPath,
-          tvSeriesPath: this.dbConfigJson.tvSeriesPath,
-          movies: this.movies,
-          tvSeries: this.tvSeries
+          moviesPath: this.moviesPath,
+          tvSeriesPath: this.tvSeriesPath,
+          movies: movies,
+          tvSeries: this.dbConfigJson.tvSeries
         });
-
-        //update the dbConfig.json with the data
         this.updateData();
       },
       (failure)=>{
-
+        console.log("Failed to update the dbConfig file ", failure);
       }
     );
+    
+    //go through specified movies folder
+    // this.fileSystem.getFilesInDir(this.moviesPath).then(
+    //   (moviesList)=>{
+    //     console.log("Movies fetched: ", moviesList);
+
+    //     this.movies = [];
+    //     // for(let i = 0; i < moviesList.length; ++i){
+    //     //   this.fileSystem.getFilesInDir(this.moviesPath+"\\"+moviesList[i]).then(
+    //     //     (movieFolderContent)=>{
+    //     //       console.log("Name: ", moviesList[i]," - ",movieFolderContent);
+    //     //       //find & add movie name to name
+    //     //       //find & add video file to videoPath
+    //     //       //find & add srt file to srtPath
+    //     //       //find & add poster file to posterPath
+    //     //       //find & add folder path
+    //     //     }
+    //     //   );
+    //     //   await delay(5000);
+    //     // }
+
+    //     for(let i = 0; i < moviesList.length; ++i){
+    //       this.movies[i] = new Movie(moviesList[i], this.moviesPath+"\\"+moviesList[i], 
+    //                                               '', '', []);
+    //     }
+
+    //     //update dbConfig.json
+    //     this.dbConfigJson = new DbConfig({
+    //       moviesPath: this.dbConfigJson.moviesPath,
+    //       tvSeriesPath: this.dbConfigJson.tvSeriesPath,
+    //       movies: this.movies,
+    //       tvSeries: this.tvSeries
+    //     });
+
+    //     //update the dbConfig.json with the data
+    //     this.updateData();
+    //   },
+    //   (failure)=>{
+
+    //   }
+    // );
     
 
   }
