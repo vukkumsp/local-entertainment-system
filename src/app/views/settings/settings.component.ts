@@ -57,14 +57,14 @@ export class SettingsComponent implements OnInit {
 
   syncData(): void {
 
-    this.fileSystem.parseMovies(this.moviesPath).then(
-      (movies)=>{
+    this.fileSystem.parseMedia([ this.moviesPath, this.tvSeriesPath ]).then(
+      ([movies, tvSeries])=>{
         console.log("Updated the dbConfig file ", movies);
         this.dbConfigJson = new DbConfig({
           moviesPath: this.moviesPath,
           tvSeriesPath: this.tvSeriesPath,
           movies: movies,
-          tvSeries: this.dbConfigJson.tvSeries
+          tvSeries: tvSeries
         });
         this.updateData();
       },

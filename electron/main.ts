@@ -2,7 +2,6 @@ import { app, BrowserWindow, ipcMain } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
 import * as fs from 'fs';
-import { Movie } from 'models/Movie';
 
 let win: BrowserWindow;
 
@@ -66,7 +65,69 @@ ipcMain.on('parseMovies', (event, moviesFolder) => {
     });
 
     win.webContents.send('parseMoviesResponse', movies)
-})
+});
+
+//Parse media folder
+ipcMain.on('parseMedia', (event, mediaFolders) => {
+    const [ moviesFolder, tvSeriesFolder ] = mediaFolders;
+    const videoExts = ["mp4"];
+    const coverExts = ["png", "jpg", "jpeg"];
+    const subExts = ["srt"];
+
+    let movies = parseMovies(moviesFolder, videoExts, coverExts, subExts);
+    let tvSeries = parseTvSeries(tvSeriesFolder, videoExts, coverExts, subExts);
+
+    win.webContents.send('parseMediaResponse', [ movies, tvSeries ])
+});
+
+function parseMovies(
+    moviesFolder: string,
+    videoExts: string[],
+    coverExts: string[],
+    subExts: string[]) {
+
+    let movies = [];
+    const folders = fs.readdirSync(moviesFolder);
+    
+    
+    folders.forEach((folder)=>{
+        let folderPath = moviesFolder + "\\" + folder;
+        movies.push({
+            name: folder,
+            folderPath: folderPath,
+            videoPath: folderPath + "\\" + findFile(folderPath, videoExts),
+            posterPath: folderPath + "\\" + findFile(folderPath, coverExts),
+            subs: folderPath + "\\" + findFile(folderPath, subExts)
+        })
+    });
+
+    //returns movies json
+    return movies
+}
+
+function parseTvSeries(
+    tvSeriesFolder: string,
+    videoExts: string[],
+    coverExts: string[],
+    subExts: string[]) {
+
+    let tvSeries = [];
+    const folders = fs.readdirSync(tvSeriesFolder);
+    
+    
+    folders.forEach((folder)=>{
+        let folderPath = tvSeriesFolder + "\\" + folder;
+        tvSeries.push({
+            name: folder,
+            folderPath: folderPath,
+            posterPath: folderPath + "\\" + findFile(folderPath, coverExts),
+            subs: folderPath + "\\" + findFile(folderPath, subExts)
+        })
+    });
+
+    //returns tvSeries json
+    return tvSeries
+}
 
 function createWindow() {
     win = new BrowserWindow({
