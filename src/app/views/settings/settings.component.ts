@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { delay } from 'rxjs';
 import { DbConfig } from 'src/app/models/DbConfig';
+import { Movie } from 'src/app/models/Movie';
 import { FileService } from 'src/app/services/file.service';
 
 @Component({
@@ -36,6 +38,7 @@ export class SettingsComponent implements OnInit {
   }
 
   updateData(): void {
+    console.log("updateData>> "+JSON.stringify(this.dbConfigJson));
     this.dbConfigJson = new DbConfig({
       moviesPath: this.moviesPath,
       tvSeriesPath: this.tvSeriesPath,
@@ -61,33 +64,43 @@ export class SettingsComponent implements OnInit {
       (moviesList)=>{
         console.log("Movies fetched: ", moviesList);
 
+
         this.movies = [];
-        moviesList.forEach(movie => {
-          this.fileSystem.getFilesInDir(this.moviesPath+"\\"+movie).then(
-            (movieFolderContent)=>{
-              console.log("Name: ", movie," - ",movieFolderContent);
-              //find & add movie name to name
-              //find & add video file to videoPath
-              //find & add srt file to srtPath
-              //find & add poster file to posterPath
-              //find & add folder path
-            }
-          )
-        });
+        // for(let i = 0; i < moviesList.length; ++i){
+        //   this.fileSystem.getFilesInDir(this.moviesPath+"\\"+moviesList[i]).then(
+        //     (movieFolderContent)=>{
+        //       console.log("Name: ", moviesList[i]," - ",movieFolderContent);
+        //       //find & add movie name to name
+        //       //find & add video file to videoPath
+        //       //find & add srt file to srtPath
+        //       //find & add poster file to posterPath
+        //       //find & add folder path
+        //     }
+        //   );
+        //   await delay(5000);
+        // }
+
+        for(let i = 0; i < moviesList.length; ++i){
+          this.movies[i] = new Movie(moviesList[i], this.moviesPath+"\\"+moviesList[i], 
+                                                  '', '', []);
+        }
 
         //update dbConfig.json
         this.dbConfigJson = new DbConfig({
-          moviesPath: this.moviesPath,
-          tvSeriesPath: this.tvSeriesPath,
+          moviesPath: this.dbConfigJson.moviesPath,
+          tvSeriesPath: this.dbConfigJson.tvSeriesPath,
           movies: this.movies,
           tvSeries: this.tvSeries
         });
+
+        //update the dbConfig.json with the data
+        this.updateData();
       },
       (failure)=>{
 
       }
     )
-    //update the dbConfig.json with the data
+    
 
   }
 }
