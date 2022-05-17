@@ -12,6 +12,7 @@ import { SettingsComponent } from './views/settings/settings.component';
 import { HomeComponent } from './views/home/home.component';
 import { MoviesComponent } from './views/movies/movies.component';
 import { TvseriesComponent } from './views/tvseries/tvseries.component';
+import { MovieComponent } from './views/movie/movie.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { TvseriesComponent } from './views/tvseries/tvseries.component';
     SettingsComponent,
     HomeComponent,
     MoviesComponent,
-    TvseriesComponent
+    TvseriesComponent,
+    MovieComponent
   ],
   imports: [
     BrowserModule,
