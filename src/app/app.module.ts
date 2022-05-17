@@ -10,6 +10,8 @@ import { FooterComponent } from './layout/footer/footer.component';
 import { ContainerComponent } from './layout/container/container.component';
 import { SettingsComponent } from './views/settings/settings.component';
 import { HomeComponent } from './views/home/home.component';
+import { MoviesComponent } from './views/movies/movies.component';
+import { TvseriesComponent } from './views/tvseries/tvseries.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +20,9 @@ import { HomeComponent } from './views/home/home.component';
     FooterComponent,
     ContainerComponent,
     SettingsComponent,
-    HomeComponent
+    HomeComponent,
+    MoviesComponent,
+    TvseriesComponent
   ],
   imports: [
     BrowserModule,
