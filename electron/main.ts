@@ -70,7 +70,7 @@ ipcMain.on('parseMovies', (event, moviesFolder) => {
 //Parse media folder
 ipcMain.on('parseMedia', (event, mediaFolders) => {
     const [ moviesFolder, tvSeriesFolder ] = mediaFolders;
-    const videoExts = ["mp4"];
+    const videoExts = ["mp4", "mkv"];
     const coverExts = ["png", "jpg", "jpeg"];
     const subExts = ["srt"];
 
@@ -117,16 +117,41 @@ function parseTvSeries(
     
     folders.forEach((folder)=>{
         let folderPath = tvSeriesFolder + "\\" + folder;
+                
         tvSeries.push({
             name: folder,
             folderPath: folderPath,
             posterPath: folderPath + "\\" + findFile(folderPath, coverExts),
-            subs: folderPath + "\\" + findFile(folderPath, subExts)
-        })
+            chapters: parseChapters(folderPath, videoExts, coverExts, subExts)
+        });
     });
 
     //returns tvSeries json
     return tvSeries
+}
+
+function parseChapters(
+    chaptersFolderPath: string,
+    videoExts: string[],
+    coverExts: string[],
+    subExts: string[]) {
+
+    const chaptersFolders = fs.readdirSync(chaptersFolderPath);
+    let chapters = [];
+    
+    chaptersFolders.forEach((chapter)=>{
+        let chapterPath = chaptersFolderPath + "\\" + chapter;
+        if(fs.statSync(chapterPath).isFile()) return; //continue; equivalent
+        chapters.push({
+            name: chapter,
+            chapterPath: chapterPath,
+            episodes: findFiles(chapterPath, videoExts),
+            posterPath: chapterPath + "\\" + findFile(chapterPath, coverExts)
+        })
+    });
+
+    //returns chapters json
+    return chapters
 }
 
 function createWindow() {
@@ -174,22 +199,17 @@ function findFile(folderPath: string, extensions: string[]): string {
     return "ERROR";
 }
 
-function getVideoFileName(folderPath: string): string {
-    const extensions = ["mp4"];
+function findFiles(folderPath: string, extensions: string[]): string[] {
     const files = fs.readdirSync(folderPath);
+    let fileNames = [];
 
     for(let i=0; i < files.length; ++i){
         for(let j=0; j < extensions.length; ++j){
             if(files[i].endsWith(extensions[j])){
-                return files[i];
+                fileNames.push(files[i]);
             }
         }
     }
 
-    return "ERROR";
-}
-
-function getPosterFileName(folderPath: string): string {
-    const extensions = ["png", "jpg", "jpeg"]
-    return "abc";
+    return fileNames;
 }
