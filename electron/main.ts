@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain } from 'electron';
+import { app, BrowserWindow, ipcMain, protocol } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
 import * as fs from 'fs';
@@ -22,6 +22,12 @@ app.on('window-all-closed', function () {
         app.quit()
     }
 })
+
+// app.whenReady().then(() => {
+//     protocol.registerSchemesAsPrivileged([
+//         { scheme: "priviliged", privileges: { bypassCSP: true } },
+//     ]);
+// });
 
 //GetFile
 ipcMain.on('getFile', (event, filePath) => {

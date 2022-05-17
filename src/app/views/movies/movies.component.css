@@ -1,0 +1,9 @@
+.grid-container {
+    display: grid;
+    grid-column-gap: 50px;
+    grid-row-gap: 50px;
+}
+
+.custom-body {
+    padding: 20px;
+}
