@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain, protocol } from 'electron';
+import { app, BrowserWindow, ipcMain } from 'electron';
 import * as path from 'path';
 import * as url from 'url';
 import * as fs from 'fs';
@@ -22,12 +22,6 @@ app.on('window-all-closed', function () {
         app.quit()
     }
 })
-
-// app.whenReady().then(() => {
-//     protocol.registerSchemesAsPrivileged([
-//         { scheme: "priviliged", privileges: { bypassCSP: true } },
-//     ]);
-// });
 
 function createWindow() {
     win = new BrowserWindow({
@@ -58,7 +52,7 @@ function createWindow() {
     })
 }
 
-/**************************** IPC Functions ******************************/
+/***************************************** IPC Functions *********************************************/
 
 //GetFile
 ipcMain.on('getFile', (event, filePath) => {
@@ -123,7 +117,7 @@ ipcMain.on('playVideo', (event, videoFilePath, videoName) => {
     win.webContents.send('playVideoResponse', "Video " + videoName + " started");
 });
 
-/************************************Other Support Functions**********************************************/
+/********************************** Other Support Functions ********************************************/
 function findFile(folderPath: string, extensions: string[]): string {
     const files = fs.readdirSync(folderPath);
 
@@ -163,7 +157,7 @@ function openExeApplication(applicationPath: string, parameters: string[]){
     });
 }
 
-/**************************Support Parsing Functions************************* */
+/************************************* Support Parsing Functions ***************************************/
 
 function parseMovies(
     moviesFolder: string,
