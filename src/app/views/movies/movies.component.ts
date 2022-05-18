@@ -24,7 +24,7 @@ export class MoviesComponent implements OnInit {
       (error) => {
         console.error("DB Config file not found");
       }
-    )
+    );
   }
 
 }
