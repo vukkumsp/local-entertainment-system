@@ -6,7 +6,7 @@ LES or Local Entertainment System is inspired from [Emdb](https://www.emdb.eu/) 
 
 ## Development
 
-Run `npm run electron` for a dev app.
+Run `npm run electron` for dev app to run locally.
 
 ## Resources & Knowledge
 
