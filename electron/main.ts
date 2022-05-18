@@ -118,7 +118,8 @@ ipcMain.on('parseMedia', (event, mediaFolders) => {
 });
 
 ipcMain.on('playVideo', (event, videoFilePath, videoName) => {
-    openExeApplication("C:\\Program Files\\Windows Media Player\\wmplayer.exe", [videoFilePath]);
+    // https://docs.microsoft.com/en-us/windows/win32/wmp/command-line-parameters
+    openExeApplication("C:\\Program Files\\Windows Media Player\\wmplayer.exe", [ videoFilePath ]);
     win.webContents.send('playVideoResponse', "Video " + videoName + " started");
 });
 
