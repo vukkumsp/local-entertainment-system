@@ -67,4 +67,14 @@ export class FileService {
       this.es.getIpcR().send("parseMedia", mediaFolders);
     });
   }
+
+  async playVideo(videoPath: string, fileName: string) {
+    return new Promise<string[]>((resolve, reject) => {
+      this.es.getIpcR().once("playVideoResponse", (event, response) => {
+        resolve(response);
+      });
+      console.log("Sending playVideo to channel");
+      this.es.getIpcR().send("playVideo", videoPath, fileName);
+    });
+  }
 }

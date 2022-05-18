@@ -37,4 +37,14 @@ export class MovieComponent implements OnInit {
     )
   }
 
+  playMovie(){
+    this.fileSystem.playVideo(this.movieJson.videoPath, this.movieJson.name).then(
+      (response)=>{
+        console.log(response);
+      },
+      (error) => {
+        console.error("DB Config file not found");
+      }
+    );
+  }
 }

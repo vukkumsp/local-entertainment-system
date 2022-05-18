@@ -117,6 +117,10 @@ ipcMain.on('parseMedia', (event, mediaFolders) => {
     win.webContents.send('parseMediaResponse', [ movies, tvSeries ])
 });
 
+ipcMain.on('playVideo', (event, videoFilePath, videoName) => {
+    openExeApplication("C:\\Program Files\\Windows Media Player\\wmplayer.exe", [videoFilePath]);
+    win.webContents.send('playVideoResponse', "Video " + videoName + " started");
+});
 
 /************************************Other Support Functions**********************************************/
 function findFile(folderPath: string, extensions: string[]): string {
@@ -148,8 +152,14 @@ function findFiles(folderPath: string, extensions: string[]): string[] {
     return fileNames;
 }
 
-function cleanName(inputName: string) {
-    return inputName.split("[")[0];
+//resource: https://ourcodeworld.com/articles/read/154/how-to-execute-an-exe-file-system-application-using-electron-framework
+function openExeApplication(applicationPath: string, parameters: string[]){
+    var child = require('child_process').execFile;
+
+    child(applicationPath, parameters, function(err, data) {
+        if(err) console.error(err);
+        if(data) console.info(data.toString());
+    });
 }
 
 /**************************Support Parsing Functions************************* */

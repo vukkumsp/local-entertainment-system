@@ -1,7 +1,8 @@
 <p>
     {{movieJson|json}}
 </p>
-<video width="400" controls>
+<!-- <video width="400" controls>
     <source src="{{movieJson.videoPath}}" type="video/mp4">
     Your browser does not support HTML video.
-</video>
+</video> -->
+<button type="button" class="btn btn-success" (click)="playMovie()">Play</button>
