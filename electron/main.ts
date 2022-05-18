@@ -99,7 +99,8 @@ function parseMovies(
     folders.forEach((folder)=>{
         let folderPath = moviesFolder + "\\" + folder;
         movies.push({
-            name: folder,
+            name: folder.split("[")[0].trim(),
+            folderName: folder,
             folderPath: folderPath,
             videoPath: folderPath + "\\" + findFile(folderPath, videoExts),
             posterPath: folderPath + "\\" + findFile(folderPath, coverExts),
@@ -218,4 +219,8 @@ function findFiles(folderPath: string, extensions: string[]): string[] {
     }
 
     return fileNames;
+}
+
+function cleanName(inputName: string) {
+    return inputName.split("[")[0];
 }
