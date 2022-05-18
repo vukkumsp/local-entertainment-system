@@ -29,6 +29,37 @@ app.on('window-all-closed', function () {
 //     ]);
 // });
 
+function createWindow() {
+    win = new BrowserWindow({
+        width: 1270,
+        height: 720,
+        backgroundColor: '#ffffff',
+        webPreferences: {
+            nodeIntegration: true,
+            // enableRemoteModule: true
+            contextIsolation: false, //required to make window.require work when in electron window
+        }
+    })
+    // Menu bar
+    // win.setMenu(null);
+    win.loadURL(
+        url.format({
+            pathname: path.join(__dirname, `/../../dist/local-entertainment-system/index.html`),
+            protocol: 'file:',
+            slashes: true,
+        })
+    )
+    // uncomment below to open the DevTools.
+    win.webContents.openDevTools();
+
+    // Event when the window is closed.
+    win.on('closed', () => {
+        win = null
+    })
+}
+
+/**************************** IPC Functions ******************************/
+
 //GetFile
 ipcMain.on('getFile', (event, filePath) => {
     //arg is the path to the json file
@@ -85,6 +116,43 @@ ipcMain.on('parseMedia', (event, mediaFolders) => {
 
     win.webContents.send('parseMediaResponse', [ movies, tvSeries ])
 });
+
+
+/************************************Other Support Functions**********************************************/
+function findFile(folderPath: string, extensions: string[]): string {
+    const files = fs.readdirSync(folderPath);
+
+    for(let i=0; i < files.length; ++i){
+        for(let j=0; j < extensions.length; ++j){
+            if(files[i].endsWith(extensions[j])){
+                return files[i];
+            }
+        }
+    }
+
+    return "ERROR";
+}
+
+function findFiles(folderPath: string, extensions: string[]): string[] {
+    const files = fs.readdirSync(folderPath);
+    let fileNames = [];
+
+    for(let i=0; i < files.length; ++i){
+        for(let j=0; j < extensions.length; ++j){
+            if(files[i].endsWith(extensions[j])){
+                fileNames.push(files[i]);
+            }
+        }
+    }
+
+    return fileNames;
+}
+
+function cleanName(inputName: string) {
+    return inputName.split("[")[0];
+}
+
+/**************************Support Parsing Functions************************* */
 
 function parseMovies(
     moviesFolder: string,
@@ -159,68 +227,4 @@ function parseChapters(
 
     //returns chapters json
     return chapters
-}
-
-function createWindow() {
-    win = new BrowserWindow({
-        width: 1270,
-        height: 720,
-        backgroundColor: '#ffffff',
-        webPreferences: {
-            nodeIntegration: true,
-            // enableRemoteModule: true
-            contextIsolation: false, //required to make window.require work when in electron window
-        }
-    })
-    // Menu bar
-    // win.setMenu(null);
-    win.loadURL(
-        url.format({
-            pathname: path.join(__dirname, `/../../dist/local-entertainment-system/index.html`),
-            protocol: 'file:',
-            slashes: true,
-        })
-    )
-    // uncomment below to open the DevTools.
-    win.webContents.openDevTools();
-
-    // Event when the window is closed.
-    win.on('closed', () => {
-        win = null
-    })
-}
-
-
-/**********************************************************************************/
-function findFile(folderPath: string, extensions: string[]): string {
-    const files = fs.readdirSync(folderPath);
-
-    for(let i=0; i < files.length; ++i){
-        for(let j=0; j < extensions.length; ++j){
-            if(files[i].endsWith(extensions[j])){
-                return files[i];
-            }
-        }
-    }
-
-    return "ERROR";
-}
-
-function findFiles(folderPath: string, extensions: string[]): string[] {
-    const files = fs.readdirSync(folderPath);
-    let fileNames = [];
-
-    for(let i=0; i < files.length; ++i){
-        for(let j=0; j < extensions.length; ++j){
-            if(files[i].endsWith(extensions[j])){
-                fileNames.push(files[i]);
-            }
-        }
-    }
-
-    return fileNames;
-}
-
-function cleanName(inputName: string) {
-    return inputName.split("[")[0];
 }
