@@ -1,1 +1,28 @@
-<p>chapter works!</p>
+<div class="container">
+    <div class="row">
+        <div class="col-3">
+            <img src="file://{{chapter.posterPath}}" onerror="this.onerror=null; this.src='assets/default.jpg'"
+                class="card-img-top" alt="...">
+        </div>
+        <div class="col-9">
+            <a class="dropdown-item" [routerLink]="['/tvseries', selectedSeries]">{{selectedSeries}}</a>
+            <h5>
+                {{chapter.name}}
+            </h5>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Episode Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngFor="let episode of chapter.episodes;">
+                        <tr>
+                            <td class="clickable" [routerLink]="['/tvseries', selectedSeries, chapter.name, episode]">{{episode}}</td>
+                        </tr>
+                    </ng-container>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

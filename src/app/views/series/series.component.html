@@ -18,7 +18,7 @@
                 <tbody>
                     <ng-container *ngFor="let chapter of series.chapters;">
                         <tr>
-                            <td class="clickable">{{chapter.name}}</td>
+                            <td class="clickable" [routerLink]="['/tvseries', series.name, chapter.name]">{{chapter.name}}</td>
                         </tr>
                     </ng-container>
                 </tbody>
