@@ -13,6 +13,8 @@ import { HomeComponent } from './views/home/home.component';
 import { MoviesComponent } from './views/movies/movies.component';
 import { TvseriesComponent } from './views/tvseries/tvseries.component';
 import { MovieComponent } from './views/movie/movie.component';
+import { SeriesComponent } from './views/series/series.component';
+import { ChapterComponent } from './views/chapter/chapter.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { MovieComponent } from './views/movie/movie.component';
     HomeComponent,
     MoviesComponent,
     TvseriesComponent,
-    MovieComponent
+    MovieComponent,
+    SeriesComponent,
+    ChapterComponent
   ],
   imports: [
     BrowserModule,

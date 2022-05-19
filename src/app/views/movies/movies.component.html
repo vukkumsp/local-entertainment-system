@@ -1,6 +1,6 @@
 <div class="container">
     <div class="row row-cols-1 row-cols-md-6 g-6">
-        <ng-container *ngFor="let movie of moviesJson;">
+        <ng-container *ngFor="let movie of movies;">
             <div class="col">
                 <div class="card clickable-card" [routerLink]="['/movie', movie.name]">
                     <!-- style="width: 18rem;" -->

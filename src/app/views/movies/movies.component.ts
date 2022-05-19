@@ -11,7 +11,7 @@ import { FileService } from 'src/app/services/file.service';
 export class MoviesComponent implements OnInit {
   dbConfigPath = 'C:\\Users\\vukku\\Documents\\dbConfig.json';
   dbConfigJson = new DbConfig({});
-  moviesJson: Movie[] = [];
+  movies: Movie[] = [];
 
   constructor(private fileSystem: FileService) { }
 
@@ -19,7 +19,8 @@ export class MoviesComponent implements OnInit {
     this.fileSystem.getFile(this.dbConfigPath).then(
       (fileData)=>{
         this.dbConfigJson = new DbConfig(fileData);
-        this.moviesJson = this.dbConfigJson.movies;
+        this.movies = this.dbConfigJson.movies;
+        console.info("Movies Component");
       },
       (error) => {
         console.error("DB Config file not found");

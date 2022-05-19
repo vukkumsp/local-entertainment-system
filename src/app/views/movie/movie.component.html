@@ -1,8 +1,14 @@
-<p>
-    {{movieJson|json}}
-</p>
-<!-- <video width="400" controls>
-    <source src="{{movieJson.videoPath}}" type="video/mp4">
-    Your browser does not support HTML video.
-</video> -->
-<button type="button" class="btn btn-success" (click)="playMovie()">Play</button>
+<div class="container">
+    <div class="row">
+        <div class="col-3">
+            <img src="file://{{movie.posterPath}}" onerror="this.onerror=null; this.src='assets/default.jpg'" class="card-img-top" alt="...">
+        </div>
+        <div class="col-9">
+            <a class="dropdown-item" routerLink="/movies">Movies</a>
+            <h5>
+                {{movie.name}}
+            </h5>
+            <button type="button" class="btn btn-success" (click)="playMovie()">Play</button>
+        </div>
+    </div>
+</div>

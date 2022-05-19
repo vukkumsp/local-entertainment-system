@@ -1,23 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DbConfig } from 'src/app/models/DbConfig';
-import { Movie } from 'src/app/models/Movie';
+import { TvSeries } from 'src/app/models/TvSeries';
 import { FileService } from 'src/app/services/file.service';
 
 @Component({
-  selector: 'app-movie',
-  templateUrl: './movie.component.html',
-  styleUrls: ['./movie.component.css']
+  selector: 'app-series',
+  templateUrl: './series.component.html',
+  styleUrls: ['./series.component.css']
 })
-export class MovieComponent implements OnInit {
+export class SeriesComponent implements OnInit {
   dbConfigPath = 'C:\\Users\\vukku\\Documents\\dbConfig.json';
   dbConfigJson = new DbConfig({});
-  movie: Movie = {
+  series: TvSeries = {
     name: '',
     folderPath: '',
-    videoPath: '',
     posterPath: '',
-    subs: []
+    chapters: []
   };
 
   constructor(
@@ -25,12 +24,13 @@ export class MovieComponent implements OnInit {
     private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
+    
     this.fileSystem.getFile(this.dbConfigPath).then(
       (fileData)=>{
         let selectedName = this.activatedRoute.snapshot.paramMap.get('name')
         this.dbConfigJson = new DbConfig(fileData);
-        this.movie = this.dbConfigJson.movies.filter(movie => movie.name === selectedName)[0];
-        console.info("Movie Component");
+        this.series = this.dbConfigJson.tvSeries.filter(series => series.name === selectedName)[0];
+        console.info("Series Component");
       },
       (error) => {
         console.error("DB Config file not found");
@@ -38,14 +38,4 @@ export class MovieComponent implements OnInit {
     )
   }
 
-  playMovie(){
-    this.fileSystem.playVideo(this.movie.videoPath, this.movie.name).then(
-      (response)=>{
-        console.log(response);
-      },
-      (error) => {
-        console.error("DB Config file not found");
-      }
-    );
-  }
 }

@@ -1,0 +1,28 @@
+<div class="container">
+    <div class="row">
+        <div class="col-3">
+            <img src="file://{{series.posterPath}}" onerror="this.onerror=null; this.src='assets/default.jpg'"
+                class="card-img-top" alt="...">
+        </div>
+        <div class="col-9">
+            <a class="dropdown-item" routerLink="/tvseries">All TV Series</a>
+            <h5>
+                {{series.name}}
+            </h5>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Chapter Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngFor="let chapter of series.chapters;">
+                        <tr>
+                            <td class="clickable">{{chapter.name}}</td>
+                        </tr>
+                    </ng-container>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
