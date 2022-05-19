@@ -44,4 +44,14 @@ export class ChapterComponent implements OnInit {
     )
   }
 
+  playEpisode(episodeName: string){
+    this.fileSystem.playVideo(this.chapter.chapterPath+"\\"+episodeName, episodeName).then(
+      (response)=>{
+        console.log(response);
+      },
+      (error) => {
+        console.error("DB Config file not found");
+      }
+    );
+  }
 }

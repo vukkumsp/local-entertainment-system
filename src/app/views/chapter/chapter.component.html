@@ -18,7 +18,7 @@
                 <tbody>
                     <ng-container *ngFor="let episode of chapter.episodes;">
                         <tr>
-                            <td class="clickable" [routerLink]="['/tvseries', selectedSeries, chapter.name, episode]">{{episode}}</td>
+                            <td class="clickable" (click)="playEpisode(episode)">{{episode}}</td>
                         </tr>
                     </ng-container>
                 </tbody>
