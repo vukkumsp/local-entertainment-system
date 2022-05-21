@@ -118,12 +118,10 @@ ipcMain.on('parseMedia', (event, mediaFolders) => {
 ipcMain.on('playVideo', (event, videoFilePath, videoName, player) => {
     // https://docs.microsoft.com/en-us/windows/win32/wmp/command-line-parameters
     let videoPlayerPath = "C:\\Program Files\\Windows Media Player\\wmplayer.exe";
-    switch(player){
-        case "VLC":
-            videoFilePath = "C:\\Program Files\\VideoLAN\\VLC\\vlc.exe";
-            break;
-        // more video players coming soon
-    }
+    
+    // if(player==="VLC") {
+    //     videoFilePath = "C:\\Program Files\\VideoLAN\\VLC\\vlc.exe";
+    // }
     openExeApplication(videoPlayerPath, [ videoFilePath ]);
     
     win.webContents.send('playVideoResponse', "Video " + videoName + " started");
