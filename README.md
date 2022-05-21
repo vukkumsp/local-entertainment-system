@@ -1,4 +1,5 @@
 # Local Entertainment System
+![NPM Tests](https://github.com/vsaiprakash/local-entertainment-system/actions/workflows/npm-tests-workflow.yml/badge.svg)
 
 ## Why this project is created ?
 

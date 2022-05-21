@@ -1,7 +1,7 @@
 name: NPM Tests Workflow
 on: [push]
 jobs:
-  Run-NPM-Tests:
+  NPM Tests:
     runs-on: ubuntu-latest
     steps:
       - run: echo "Started NPM Tests Workflow"
