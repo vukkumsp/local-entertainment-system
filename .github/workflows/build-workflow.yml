@@ -17,6 +17,6 @@ jobs:
         run: |
           npm install
           npm install -g @angular/cli
-      # - name: Run NPM Electron
-      #   run: |
-      #     npm run electron
+      - name: Run NPM Electron Build
+        run: |
+          npm run electron-build
