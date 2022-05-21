@@ -1,0 +1,22 @@
+name: Electron Build
+on: [push]
+jobs:
+  Run-NPM-Tests:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Started Electron Build Workflow"
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - name: Checking NodeJs & NPM Versions
+        run: |
+          echo "Node Version check"
+          node -v
+          echo "NPM Version check"
+          npm -v
+      - name: Run NPM Build
+        run: |
+          npm install
+          npm install -g @angular/cli
+      - name: Run NPM Electron
+        run: |
+          npm run electron
