@@ -93,7 +93,7 @@ ipcMain.on('parseMovies', (event, moviesFolder) => {
         movies.push({
             name: folder,
             folderPath: folderPath,
-            videoPath: folderPath + "\\" + findFile(folderPath, videoExts),
+            videoPath: buildPath([folderPath, findFile(folderPath, videoExts)]),
             posterPath: folderPath + "\\" + findFile(folderPath, coverExts),
             subs: folderPath + "\\" + findFile(folderPath, subExts)
         })
@@ -122,7 +122,7 @@ ipcMain.on('playVideo', (event, videoFilePath, videoName) => {
 });
 
 /********************************** Other Support Functions ********************************************/
-function findFile(folderPath: string, extensions: string[]): string {
+function findFile(folderPath: string, extensions: string[]): string | null {
     const files = fs.readdirSync(folderPath);
 
     for(let i=0; i < files.length; ++i){
@@ -133,7 +133,7 @@ function findFile(folderPath: string, extensions: string[]): string {
         }
     }
 
-    return "ERROR";
+    return null;
 }
 
 function findFiles(folderPath: string, extensions: string[]): string[] {
@@ -149,6 +149,18 @@ function findFiles(folderPath: string, extensions: string[]): string[] {
     }
 
     return fileNames;
+}
+
+function buildPath(pathArray: string[]): string | null{
+    const pathDivider = "\\";
+    let result = "";
+    pathArray.forEach(entry => {
+        result = (result=="")?result:result + pathDivider;
+        result = result + entry;
+        if(entry==null) return null;
+    });
+
+    return result;
 }
 
 //resource: https://ourcodeworld.com/articles/read/154/how-to-execute-an-exe-file-system-application-using-electron-framework
@@ -174,14 +186,14 @@ function parseMovies(
     
     
     folders.forEach((folder)=>{
-        let folderPath = moviesFolder + "\\" + folder;
+        let folderPath = buildPath([moviesFolder, folder]);
         movies.push({
             name: folder.split("[")[0].trim(),
             folderName: folder,
             folderPath: folderPath,
-            videoPath: folderPath + "\\" + findFile(folderPath, videoExts),
-            posterPath: folderPath + "\\" + findFile(folderPath, coverExts),
-            subs: folderPath + "\\" + findFile(folderPath, subExts)
+            videoPath: buildPath([folderPath, findFile(folderPath, videoExts)]),
+            posterPath: buildPath([folderPath, findFile(folderPath, coverExts)]),
+            subs: buildPath([folderPath, findFile(folderPath, subExts)])
         })
     });
 
@@ -200,12 +212,12 @@ function parseTvSeries(
     
     
     folders.forEach((folder)=>{
-        let folderPath = tvSeriesFolder + "\\" + folder;
+        let folderPath = buildPath([tvSeriesFolder, folder]);
                 
         tvSeries.push({
             name: folder,
             folderPath: folderPath,
-            posterPath: folderPath + "\\" + findFile(folderPath, coverExts),
+            posterPath: buildPath([folderPath, findFile(folderPath, coverExts)]),
             chapters: parseChapters(folderPath, videoExts, coverExts, subExts)
         });
     });
@@ -224,13 +236,14 @@ function parseChapters(
     let chapters = [];
     
     chaptersFolders.forEach((chapter)=>{
-        let chapterPath = chaptersFolderPath + "\\" + chapter;
+        let chapterPath = buildPath([chaptersFolderPath, chapter]);
+
         if(fs.statSync(chapterPath).isFile()) return; //continue; equivalent
         chapters.push({
             name: chapter,
             chapterPath: chapterPath,
             episodes: findFiles(chapterPath, videoExts),
-            posterPath: chapterPath + "\\" + findFile(chapterPath, coverExts)
+            posterPath: buildPath([chapterPath, findFile(chapterPath, coverExts)])
         })
     });
 
