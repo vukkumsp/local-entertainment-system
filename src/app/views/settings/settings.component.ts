@@ -11,7 +11,7 @@ import { FileService } from 'src/app/services/file.service';
   styleUrls: ['./settings.component.css']
 })
 export class SettingsComponent implements OnInit {
-  dbConfigPath = 'C:\\Users\\vukku\\Documents\\dbConfig.json';
+  dbConfigPath = '';
   moviesPath = '';
   tvSeriesPath = '';
   fileData = {};
@@ -23,6 +23,9 @@ export class SettingsComponent implements OnInit {
   constructor(private fileSystem: FileService) { }
 
   ngOnInit(): void {
+    // Fetch dbConfig path from local storage
+    this.dbConfigPath = this.fileSystem.getDbConfigFilePath();
+
     this.fileSystem.getFile(this.dbConfigPath).then(
       (fileData)=>{
         this.moviesPath = fileData.moviesPath?fileData.moviesPath:"Movies path not found";
@@ -35,6 +38,10 @@ export class SettingsComponent implements OnInit {
         this.tvSeriesPath = 'ERROR TV Series path not found';
       }
     )
+  }
+
+  updateDbConfigPath(): void{
+    this.fileSystem.updateDbConfigFilePath(this.dbConfigPath);
   }
 
   updateData(): void {

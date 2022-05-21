@@ -9,13 +9,15 @@ import { FileService } from 'src/app/services/file.service';
   styleUrls: ['./movies.component.css']
 })
 export class MoviesComponent implements OnInit {
-  dbConfigPath = 'C:\\Users\\vukku\\Documents\\dbConfig.json';
+  dbConfigPath = '';
   dbConfigJson = new DbConfig({});
   movies: Movie[] = [];
 
   constructor(private fileSystem: FileService) { }
 
   ngOnInit(): void {
+    this.fileSystem.getDbConfigFilePath();
+    
     this.fileSystem.getFile(this.dbConfigPath).then(
       (fileData)=>{
         this.dbConfigJson = new DbConfig(fileData);

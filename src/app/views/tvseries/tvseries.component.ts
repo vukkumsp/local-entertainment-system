@@ -9,13 +9,15 @@ import { FileService } from 'src/app/services/file.service';
   styleUrls: ['./tvseries.component.css']
 })
 export class TvseriesComponent implements OnInit {
-  dbConfigPath = 'C:\\Users\\vukku\\Documents\\dbConfig.json';
+  dbConfigPath = '';
   dbConfigJson = new DbConfig({});
   tvseries: TvSeries[] = [];
 
   constructor(private fileSystem: FileService) { }
 
   ngOnInit(): void {
+    this.dbConfigPath = this.fileSystem.getDbConfigFilePath();
+
     this.fileSystem.getFile(this.dbConfigPath).then(
       (fileData)=>{
         this.dbConfigJson = new DbConfig(fileData);

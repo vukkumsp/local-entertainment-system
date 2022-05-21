@@ -10,7 +10,7 @@ import { FileService } from 'src/app/services/file.service';
   styleUrls: ['./series.component.css']
 })
 export class SeriesComponent implements OnInit {
-  dbConfigPath = 'C:\\Users\\vukku\\Documents\\dbConfig.json';
+  dbConfigPath = '';
   dbConfigJson = new DbConfig({});
   series: TvSeries = {
     name: '',
@@ -24,6 +24,7 @@ export class SeriesComponent implements OnInit {
     private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.dbConfigPath = this.fileSystem.getDbConfigFilePath();
     
     this.fileSystem.getFile(this.dbConfigPath).then(
       (fileData)=>{

@@ -10,6 +10,14 @@ export class FileService {
 
   constructor(private es: ElectronService) { }
 
+  getDbConfigFilePath(): string {
+    return localStorage.getItem("dbConfigPath")??"C:\\Users\\vukku\\Documents\\dbConfig.json";
+  }
+
+  updateDbConfigFilePath(newPath: string): void {
+    localStorage.setItem("dbConfigPath", newPath);
+  }
+
   async getFile(filePath: String) {
     return new Promise<any>((resolve, reject) => {
       this.es.getIpcR().once("getFileResponse", (event, arg) => {

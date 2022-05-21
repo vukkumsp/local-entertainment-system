@@ -10,7 +10,7 @@ import { FileService } from 'src/app/services/file.service';
   styleUrls: ['./chapter.component.css']
 })
 export class ChapterComponent implements OnInit {
-  dbConfigPath = 'C:\\Users\\vukku\\Documents\\dbConfig.json';
+  dbConfigPath = '';
   dbConfigJson = new DbConfig({});
   chapter: Chapter = {
     name: '',
@@ -26,6 +26,8 @@ export class ChapterComponent implements OnInit {
     private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.dbConfigPath = this.fileSystem.getDbConfigFilePath();
+
     this.fileSystem.getFile(this.dbConfigPath).then(
       (fileData)=>{
         this.selectedSeries = this.activatedRoute.snapshot.paramMap.get('series');

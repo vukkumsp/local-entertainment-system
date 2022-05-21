@@ -10,7 +10,7 @@ import { FileService } from 'src/app/services/file.service';
   styleUrls: ['./movie.component.css']
 })
 export class MovieComponent implements OnInit {
-  dbConfigPath = 'C:\\Users\\vukku\\Documents\\dbConfig.json';
+  dbConfigPath = '';
   dbConfigJson = new DbConfig({});
   movie: Movie = {
     name: '',
@@ -25,6 +25,8 @@ export class MovieComponent implements OnInit {
     private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.dbConfigPath = this.fileSystem.getDbConfigFilePath();
+
     this.fileSystem.getFile(this.dbConfigPath).then(
       (fileData)=>{
         let selectedName = this.activatedRoute.snapshot.paramMap.get('name')
