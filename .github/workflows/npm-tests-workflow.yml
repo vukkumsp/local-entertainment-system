@@ -12,4 +12,4 @@ jobs:
           npm install
       - name: Run NPM Test Script
         run: |
-          npm run test
+          ng test --browsers ChromeHeadless
