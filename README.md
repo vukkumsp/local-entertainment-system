@@ -1,6 +1,6 @@
 # Local Entertainment System
 ![NPM Tests](https://github.com/vsaiprakash/local-entertainment-system/actions/workflows/npm-tests-workflow.yml/badge.svg)
-![Electron Build](https://github.com/vsaiprakash/local-entertainment-system/actions/workflows/build-workflow.yml/badge.svg)
+![Electron Build](https://github.com/vsaiprakash/local-entertainment-system/actions/workflows/electron-build-workflow.yml/badge.svg)
 
 ## Why this project is created ?
 
