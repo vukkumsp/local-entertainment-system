@@ -1,7 +1,7 @@
 name: Electron Build
 on: [push]
 jobs:
-  Run-NPM-Tests:
+  Run-NPM-Electron:
     runs-on: ubuntu-latest
     steps:
       - run: echo "Started Electron Build Workflow"
