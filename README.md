@@ -25,9 +25,9 @@ Steps:
 2. Create a basic dbConfig.json file somewhere
 3. Either copy the generated package to resources location or just run the executable file .exe in the generated folder.
 4. Go to Settings page of App
-5. Update the dbConfig file path and click 'Update Path'
+5. Update the dbConfig file path and click 'Update'
 6. Update the 'Movies' folder path & 'TV Series' folder path and click 'Update Paths'
-7. Finally click 'Sync Folders'
+7. Finally click 'Sync Folder Data'
 8. Now, App should have generated all the resources in dbConfig.json file
 9. Go to Movies page or TV Series page and explore.
 
