@@ -72,7 +72,7 @@ export class FileService {
         resolve(response);
       });
       console.log("Sending playVideo to channel");
-      this.es.getIpcR().send("playVideo", videoPath, fileName);
+      this.es.getIpcR().send("playVideo", videoPath, fileName, "VLC");
     });
   }
 }
