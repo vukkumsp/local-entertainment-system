@@ -16,7 +16,7 @@ export class MoviesComponent implements OnInit {
   constructor(private fileSystem: FileService) { }
 
   ngOnInit(): void {
-    this.fileSystem.getDbConfigFilePath();
+    this.dbConfigPath = this.fileSystem.getDbConfigFilePath();
     
     this.fileSystem.getFile(this.dbConfigPath).then(
       (fileData)=>{
