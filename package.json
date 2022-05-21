@@ -10,7 +10,8 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test --browsers ChromeHeadless --watch=false",
     "test-code-coverage": "ng test --browsers ChromeHeadless --code-coverage --watch=false",
-    "electron": "ng build --base-href ./ && tsc --p electron && electron ."
+    "electron": "ng build --base-href ./ && tsc --p electron && electron .",
+    "build-dist-app": "electron-packager . LESv1 --platform=win32 --arch=x64 --electron-version=18.2.0 --out=dist-electron-app"
   },
   "private": true,
   "dependencies": {
