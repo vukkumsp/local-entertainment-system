@@ -1,0 +1,15 @@
+name: NPM Tests Workflow
+on: [push]
+jobs:
+  Run-NPM-Tests:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Started NPM Tests Workflow"
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - name: Run NPM Install
+        run: |
+          npm install
+      - name: Run NPM Test Script
+        run: |
+          npm run test
