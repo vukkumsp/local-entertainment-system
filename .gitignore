@@ -2,6 +2,7 @@
 
 # Compiled output
 /dist
+/dist-app
 /electron/dist
 /tmp
 /out-tsc
