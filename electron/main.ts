@@ -103,8 +103,8 @@ ipcMain.on('parseMovies', (event, moviesFolder) => {
 //Parse media folder
 ipcMain.on('parseMedia', (event, mediaFolders) => {
     const [ moviesFolder, tvSeriesFolder ] = mediaFolders;
-    const videoExts = ["mp4", "mkv"];
-    const coverExts = ["png", "jpg", "jpeg"];
+    const videoExts = ["mp4", "mkv", "avi"];
+    const coverExts = ["png", "jpg", "jpeg", "jfif", "webp"];
     const subExts = ["srt"];
 
     let movies = parseMovies(moviesFolder, videoExts, coverExts, subExts);
