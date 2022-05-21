@@ -56,16 +56,6 @@ export class FileService {
     });
   }
 
-  async parseMovies(moviesPath: String) {
-    return new Promise<string[]>((resolve, reject) => {
-      this.es.getIpcR().once("parseMoviesResponse", (event, movies) => {
-        resolve(movies);
-      });
-      console.log("Sending parseMovies to channel");
-      this.es.getIpcR().send("parseMovies", moviesPath);
-    });
-  }
-
   async parseMedia(mediaFolders: any) {
     return new Promise<string[]>((resolve, reject) => {
       this.es.getIpcR().once("parseMediaResponse", (event, mediaData) => {
