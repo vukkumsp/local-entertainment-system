@@ -35,7 +35,9 @@ function createWindow() {
         },
         // Add ICON location path below
         // icon: path.join(__dirname, 'favicon.ico')
-    })
+        // icon: __dirname + "/" + 'favicon.ico'
+    });
+    // win.setIcon(path.join(__dirname, 'favicon.ico'))
     // Menu bar
     // win.setMenu(null);
     win.loadURL(
