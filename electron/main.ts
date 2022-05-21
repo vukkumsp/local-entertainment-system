@@ -32,7 +32,9 @@ function createWindow() {
             nodeIntegration: true,
             // enableRemoteModule: true
             contextIsolation: false, //required to make window.require work when in electron window
-        }
+        },
+        // Add ICON location path below
+        // icon: path.join(__dirname, 'favicon.ico')
     })
     // Menu bar
     // win.setMenu(null);
