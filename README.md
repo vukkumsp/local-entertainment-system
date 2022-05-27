@@ -37,6 +37,10 @@ IPC is being used when some features are not available to frontend process. Exam
 
 IPC is explained better in [here](https://github.com/marcialwushu/angular-electron/wiki/Using-IPC-in-Angular#a-simple-workaround)
 
+## To Do
+
+- [ ] Electron build is generated executable with whole angular project into it causing too big size of executable files. Need to resolve this.
+
 ## Notes
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.4. & based on [Electron Project](https://github.com/custom-templates/angular-electron-project-v2)
