@@ -46,6 +46,7 @@ IPC is explained better in [here](https://github.com/marcialwushu/angular-electr
 <img width="948" alt="Screenshot 2022-09-18 134159" src="https://user-images.githubusercontent.com/9028439/190892694-6c236dff-4ece-4413-8922-9d203e1a9c99.png">
 <img width="944" alt="Screenshot 2022-09-18 134237" src="https://user-images.githubusercontent.com/9028439/190892709-de4b58d5-6e1a-4ff3-9f0f-6d0d90037dcf.png">
 <img width="943" alt="Screenshot 2022-09-18 134259" src="https://user-images.githubusercontent.com/9028439/190892713-5f929f28-4d4b-4430-b8dc-dee0dadbd09b.png">
+<img width="960" alt="image" src="https://user-images.githubusercontent.com/9028439/190990778-a27803b5-31e9-45ab-bae5-69f1f8167155.png">
 
 
 ## Notes
