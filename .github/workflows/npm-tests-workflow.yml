@@ -1,5 +1,7 @@
 name: NPM Tests
-on: [push]
+on:
+  push:
+  workflow_dispatch:
 jobs:
   Run-NPM-Tests:
     runs-on: ubuntu-latest
