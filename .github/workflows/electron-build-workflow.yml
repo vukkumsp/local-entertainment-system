@@ -1,5 +1,7 @@
 name: Electron Build
-on: [push]
+on:
+  push:
+  workflow_dispatch:
 jobs:
   Run-NPM-Electron:
     runs-on: ubuntu-latest
