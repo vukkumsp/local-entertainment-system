@@ -13,3 +13,4 @@ pkg app.js --output my-app
 example: 
 pkg index.js --output LES-Server
 pkg index.js --targets node18-win-x64 --output les-desktop-server
+npx pkg index.js --targets node18-win-x64 --output les-desktop-server
