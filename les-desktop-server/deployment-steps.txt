@@ -1,0 +1,15 @@
+pkg doesnt work with Node20
+npm install -g pkg
+
+add 
+    {
+        "name": "my-app",
+        "version": "1.0.0",
+        "bin": "app.js"
+    }
+
+pkg app.js --output my-app
+
+example: 
+pkg index.js --output LES-Server
+pkg index.js --targets node18-win-x64 --output les-desktop-server

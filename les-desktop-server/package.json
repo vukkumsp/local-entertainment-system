@@ -1,9 +1,11 @@
 {
   "name": "les-desktop-server",
   "version": "1.0.0",
+  "bin":"index.js",
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index.js",
+    "winbuild": "pkg index.js --targets node18-win-x64 --output les-desktop-server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "vukkumsp",

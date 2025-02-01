@@ -1,1 +1,4 @@
 les-desktop-server/node_modules
+
+# Don't include builds
+les-desktop-server.exe
