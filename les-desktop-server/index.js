@@ -9,7 +9,7 @@ const port = 3000;
 bonjour.publish({
   name: 'Media Server',
   type: 'http',
-  host: 'myserver.local',
+  host: 'les.local',
   port: port,
   txt: { txt: 'Media Streaming Server' }
 });
