@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index.js",
-    "winbuild": "pkg index.js --targets node18-win-x64 --output les-desktop-server",
+    "winbuild": "pkg index.js --targets node18-win-x64 --output build/win/les-desktop-server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "vukkumsp",
